@@ -49,9 +49,10 @@ $fn=24;
     echo("Distance from tube lens principal plane to sensor:",dts);
     // that's the distance to the nominal "principal plane", in reality
     // we measure the front focal distance, and shift accordingly:
-    tube_lens_z = dts - (tube_lens_f - tube_lens_ffd); //height of lens
+    tube_lens_z = 28.8; //fudged manually//dts - (tube_lens_f - tube_lens_ffd); //height of lens
     lens_assembly_z = tube_lens_z - pedestal_h; //height of lens assembly
     lens_assembly_r = tube_lens_r + 2;
+    echo("tube_lens_z",tube_lens_z); //26.8 initially
     
 
 
@@ -79,12 +80,14 @@ difference(){
     union(){
         sequential_hull(){
             //this part mounts to the dovetail
+            id=37.7+0.3;
+            $fn=64;
             cylinder(d=50.8, h=1);
-            translate([0,0,1]) cylinder(d=37.7, h=d);
-            translate([0,0,2]) cylinder(d=37.7, h=d);
-            translate([0,0,2]) cylinder(d=34.7, h=d);
-            translate([0,0,4]) cylinder(d=34.7, h=d);
-            translate([0,0,7]) cylinder(d=37.7, h=2);
+            translate([0,0,1]) cylinder(d=id, h=d);
+            translate([0,0,2]) cylinder(d=id, h=d);
+            translate([0,0,2]) cylinder(d=id-3, h=d);
+            translate([0,0,4]) cylinder(d=id-3, h=d);
+            translate([0,0,7]) cylinder(d=id, h=2);
         }
         //tube to mount the lens on
         cylinder(r=lens_assembly_r, h=lens_assembly_z+d);
